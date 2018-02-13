@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`serializeObject circular 1`] = `"{ foo: 'a', bar: 123, obj: '[Circular]' }"`;
+
+exports[`serializeObject many items 1`] = `"{ longArray: 'Array(400)' }"`;
+
+exports[`serializeObject req 1`] = `
+"{ req: 
+   { method: 'GET',
+     url: '/foo',
+     headers: {},
+     remoteAddress: '::0',
+     remotePort: 1234 } }"
+`;
+
+exports[`serializeObject res 1`] = `"{ res: { statusCode: 200, header: {} } }"`;
+
+exports[`serializeObject serialize example object 1`] = `"{ foo: 'a', bar: 123 }"`;
+
+exports[`serializeObject serialize null 1`] = `"null"`;
+
+exports[`serializeObject serialize undefined 1`] = `"undefined"`;

@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`decorators functional validate async function 1`] = `
+"{
+  \\"a\\" [31m[1][0m: -10
+}
+[31m
+[1] \\"a\\" must be a positive number[0m"
+`;
+
+exports[`decorators functional validate async function 2`] = `
+Array [
+  Array [
+    Object {
+      "id": 1,
+    },
+    "ENTER foo:",
+    "{ a: 10 }",
+  ],
+  Array [
+    Object {
+      "id": 1,
+    },
+    " EXIT foo:",
+    "20",
+  ],
+  Array [
+    Object {
+      "id": 2,
+    },
+    "ENTER foo:",
+    "{ a: -10 }",
+  ],
+]
+`;
+
+exports[`decorators functional validate async function 3`] = `
+Array [
+  Array [
+    Object {
+      "id": 2,
+    },
+    "ERROR foo: { a: -10 } 
+",
+    [ValidationError: {
+  "a" [31m[1][0m: -10
+}
+[31m
+[1] "a" must be a positive number[0m],
+  ],
+]
+`;
+
+exports[`decorators functional validate sync function 1`] = `
+"{
+  \\"a\\" [31m[1][0m: -10
+}
+[31m
+[1] \\"a\\" must be a positive number[0m"
+`;
+
+exports[`decorators functional validate sync function 2`] = `
+Array [
+  Array [
+    Object {
+      "id": 1,
+    },
+    "ENTER foo:",
+    "{ a: 10 }",
+  ],
+  Array [
+    Object {
+      "id": 1,
+    },
+    " EXIT foo:",
+    "20",
+  ],
+  Array [
+    Object {
+      "id": 2,
+    },
+    "ENTER foo:",
+    "{ a: -10 }",
+  ],
+]
+`;
+
+exports[`decorators functional validate sync function 3`] = `
+Array [
+  Array [
+    Object {
+      "id": 2,
+    },
+    "ERROR foo: { a: -10 } 
+",
+    [ValidationError: {
+  "a" [31m[1][0m: -10
+}
+[31m
+[1] "a" must be a positive number[0m],
+  ],
+]
+`;
+
+exports[`decorators functional with @removeOutput 1`] = `
+Array [
+  Array [
+    Object {
+      "id": 1,
+    },
+    "ENTER foo:",
+    "{ a: 10 }",
+  ],
+  Array [
+    Object {
+      "id": 1,
+    },
+    " EXIT foo:",
+    "<removed>",
+  ],
+]
+`;
+
+exports[`decorators validation should throw error if logger not configured 1`] = `"Logger not configured for service MyService. Make sure to add @service annotation"`;
+
+exports[`decorators validation should throw if 2nd param is missing @schema annotation 1`] = `"Parameter options2 in MyService.foo is missing @schema annotation"`;
+
+exports[`decorators validation should throw if method is missing @validate 1`] = `"Method \\"MyService.foo\\" should be annotated with @validate or @ignore"`;
+
+exports[`decorators validation should throw if param is missing @schema annotation 1`] = `"Parameter options in MyService.foo is missing @schema annotation"`;

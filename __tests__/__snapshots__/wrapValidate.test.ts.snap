@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`wrapValidate wrap async 1`] = `
+"{
+  \\"a\\" [31m[1][0m: -1
+}
+[31m
+[1] \\"a\\" must be a positive number[0m"
+`;
+
+exports[`wrapValidate wrap sync 1`] = `
+"{
+  \\"a\\" [31m[1][0m: -1
+}
+[31m
+[1] \\"a\\" must be a positive number[0m"
+`;
