@@ -9,8 +9,9 @@
     "example3": "ts-node examples/example3.ts | bunyan -o short",
     "jest": "jest",
     "tsc": "tsc -p . --noEmit",
-    "build": "tsc -p . --declaration && cp package.json dist/package.json",
-    "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}' '__tests__/**/*.{ts,tsx}'",
+    "build": "tsc -p . --declaration && cp ./{package.json,README.md} dist/",
+    "lint":
+      "tslint -c tslint.json 'src/**/*.{ts,tsx}' '__tests__/**/*.{ts,tsx}'",
     "test": "npm run tsc && npm run lint && npm run jest -- --coverage"
   },
   "repository": {
