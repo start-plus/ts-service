@@ -107,7 +107,7 @@ export function validate(
     });
     const withLogging = wrapLog({
       logger,
-      method: withValidation,
+      method: withValidation.bind(this),
       methodName,
       paramNames,
       config: globalConfig,
@@ -117,7 +117,7 @@ export function validate(
         false,
     });
 
-    return withLogging(...args);
+    return withLogging.call(this, ...args);
   };
 }
 

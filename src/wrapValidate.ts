@@ -13,7 +13,7 @@ export function wrapValidate<T extends (...args: any[]) => any>(
 ): T {
   const { keysSchema, method, paramNames, sync } = options;
 
-  return (function validateDecorator(...args: any[]) {
+  return (function validateDecorator(this: any, ...args: any[]) {
     const value = combineObject(paramNames, args);
     let normalized: any;
     try {
@@ -36,6 +36,6 @@ export function wrapValidate<T extends (...args: any[]) => any>(
     paramNames.forEach(param => {
       newArgs.push(normalized[param]);
     });
-    return method(...newArgs);
+    return method.call(this, ...newArgs);
   } as any) as T;
 }

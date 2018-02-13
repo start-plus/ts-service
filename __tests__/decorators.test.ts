@@ -213,5 +213,30 @@ describe('decorators', () => {
       myService.foo(10);
       expect((logger.debug as jest.Mock<any>).mock.calls).toMatchSnapshot();
     });
+
+    it('should keep `this` context', () => {
+      @service
+      class MyService {
+        @validate
+        @removeOutput
+        foo(
+          @schema(
+            Joi.number()
+              .positive()
+              .required(),
+          )
+          a: number,
+        ) {
+          return a + this.getInt();
+        }
+        @ignore
+        private getInt() {
+          return 10;
+        }
+      }
+
+      const myService = new MyService();
+      myService.foo(10);
+    });
   });
 });
