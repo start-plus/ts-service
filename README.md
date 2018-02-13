@@ -121,7 +121,7 @@ Example:
 file `services/SecurityService.ts`
 ```ts
 import * as Joi from 'joi';
-import { service, validate, schema, removeOutput } from '../';
+import { service, validate, schema, removeOutput } from 'ts-service';
 
 @service
 class SecurityService {
@@ -156,7 +156,7 @@ See example under `example/example3.ts`. Run it using `npm run example3`.
 ```ts
 import {configure} from 'ts-service';
 
-decorate.configure({
+configure({
   removeFields: string[], // the array of fields not won't be logged to the console, default: ['password', 'token', 'accessToken'],
   debug: boolean,         // the flag if ENTER and EXIT logging is enabled, (errors are always enabled), default: true
   depth: number,          // the object depth level when serializing, default: 4           
