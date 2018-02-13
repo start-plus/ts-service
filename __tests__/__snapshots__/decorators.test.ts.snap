@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`decorators validation should throw if 2nd param is missing @schema annotation 1`] = `"Parameter options2 in MyService.foo is missing @schema annotation"`;
+
+exports[`decorators validation should throw if method is missing @validate 1`] = `"Method \\"MyService.foo\\" should be annotated with @validate or @ignore"`;
+
+exports[`decorators validation should throw if param is missing @schema annotation 1`] = `"Parameter options in MyService.foo is missing @schema annotation"`;

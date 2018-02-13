@@ -1,0 +1,32 @@
+{
+  "name": "ts-service",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "jest": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/start-plus/ts-service.git"
+  },
+  "author": "Łukasz Sentkiewicz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/start-plus/ts-service/issues"
+  },
+  "homepage": "https://github.com/start-plus/ts-service#readme",
+  "devDependencies": {
+    "jest": "test",
+    "ts-jest": "^22.0.4",
+    "ts-node": "^4.1.0",
+    "typescript": "^2.7.1"
+  },
+  "dependencies": {
+    "@types/jest": "^22.1.2",
+    "@types/joi": "^13.0.5",
+    "joi": "^13.1.2",
+    "reflect-metadata": "^0.1.12"
+  }
+}
