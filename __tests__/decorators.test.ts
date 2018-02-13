@@ -105,6 +105,27 @@ describe('decorators', () => {
         }
       }).not.toThrow();
     });
+
+    it('should throw error if logger not configured', () => {
+      class MyService {
+        @validate
+        foo(
+          @schema(
+            Joi.number()
+              .positive()
+              .required(),
+          )
+          a: number,
+        ) {
+          return a + 10;
+        }
+      }
+
+      const myService = new MyService();
+      expect(() => {
+        myService.foo(10);
+      }).toThrowErrorMatchingSnapshot();
+    });
   });
 
   describe('functional', () => {
