@@ -24,3 +24,7 @@ export function getDefaultConfig(): Config {
 }
 
 export const globalConfig = getDefaultConfig();
+
+export function configure(config: Partial<Config>) {
+  Object.assign(globalConfig, config);
+}
