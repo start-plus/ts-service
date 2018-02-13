@@ -2,13 +2,14 @@
   "name": "ts-service",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "example1": "ts-node examples/example1.ts | bunyan -o short",
     "example2": "ts-node examples/example2.ts | bunyan -o short",
     "example3": "ts-node examples/example3.ts | bunyan -o short",
     "jest": "jest",
     "tsc": "tsc -p . --noEmit",
+    "build": "tsc -p . --declaration",
     "lint":
       "tslint -c tslint.json 'src/**/*.{ts,tsx}' '__tests__/**/*.{ts,tsx}'",
     "test": "npm run tsc && npm run lint && npm run jest -- --coverage"
@@ -24,7 +25,7 @@
   },
   "homepage": "https://github.com/start-plus/ts-service#readme",
   "devDependencies": {
-    "jest": "test",
+    "jest": "^22.2.2",
     "ts-jest": "^22.0.4",
     "ts-node": "^4.1.0",
     "tslint": "^5.9.1",

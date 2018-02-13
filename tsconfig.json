@@ -12,11 +12,11 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "pretty": true,
-    "outDir": "dist",
     "baseUrl": ".",
+    "outDir": "dist",
     "paths": {
       "*": ["node_modules/*", "src/types/*"]
     }
   },
-  "include": ["src/**/*", "__tests__/**/*", "examples/**/*"]
+  "include": ["src/**/*", "__tests__/**/*"]
 }

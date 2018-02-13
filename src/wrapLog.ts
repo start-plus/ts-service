@@ -4,7 +4,7 @@ import { combineObject } from './combineObject';
 import { serializeObject } from './serializeObject';
 import { Config } from './config';
 
-interface WrapLogOptions<T> {
+export interface WrapLogOptions<T> {
   method: T;
   methodName: string;
   paramNames: string[];

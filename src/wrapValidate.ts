@@ -1,7 +1,7 @@
 import * as Joi from 'joi';
 import { combineObject } from './combineObject';
 
-interface WrapValidateOptions<T> {
+export interface WrapValidateOptions<T> {
   keysSchema: { [s: string]: Joi.Schema };
   method: T;
   paramNames: string[];
