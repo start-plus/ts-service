@@ -13,7 +13,7 @@ npm i ts-service
 
 
 ## Sample usage (inline annotation)
-file `services/CalcService.js`
+file `services/CalcService.ts`
 ```ts
 import * as Joi from 'joi';
 import { service, validate, schema } from 'ts-service';
@@ -50,11 +50,11 @@ calcService.add('1' as any, { foo: 'bar' } as any); // logs and throws an error
 
 ![Alt text](./.github/example1.png)
 
-See example under `example/example1.js`. Run it using `npm run example1`.
+See example under `example/example1.ts`. Run it using `npm run example1`.
 
 
 ## Async sample usage
-file `services/UserService.js`
+file `services/UserService.ts`
 ```ts
 import * as Joi from 'joi';
 import { service, validate, schema } from 'ts-service';
@@ -110,7 +110,7 @@ await userService.createUser({
 
 ![Alt text](./.github/example2.png)
 
-See example under `example/example2.js`. Run it using `npm run example2`.  
+See example under `example/example2.ts`. Run it using `npm run example2`.  
 
 
 ## Removing security information
@@ -118,7 +118,7 @@ By default properties `password`, `token`, `accessToken` are removed from loggin
 Additionally you can annotated method with `@removeOutput` to remove the method result.  
 Example:
 
-file `services/SecurityService.js`
+file `services/SecurityService.ts`
 ```ts
 import * as Joi from 'joi';
 import { service, validate, schema, removeOutput } from '../';
@@ -149,7 +149,7 @@ securityService.hashPassword('secret-password');
 
 ![Alt text](./.github/example3.png)
 
-See example under `example/example3.js`. Run it using `npm run example3`.
+See example under `example/example3.ts`. Run it using `npm run example3`.
 
 
 ## Configuration
