@@ -1,6 +1,6 @@
 {
   "name": "ts-service",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,8 +11,7 @@
     "tsc": "tsc -p . --noEmit",
     "build": "tsc -p . --declaration && cp ./{package.json,README.md} dist/",
     "publish": "cd dist && npm run publish",
-    "lint":
-      "tslint -c tslint.json 'src/**/*.{ts,tsx}' '__tests__/**/*.{ts,tsx}'",
+    "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}' '__tests__/**/*.{ts,tsx}'",
     "test": "npm run tsc && npm run lint && npm run jest -- --coverage"
   },
   "repository": {
