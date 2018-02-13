@@ -1,18 +1,17 @@
 import * as Joi from 'joi';
 import { combineObject } from './combineObject';
 
-interface WrapValidateOptions<T extends Function> {
+interface WrapValidateOptions<T> {
   keysSchema: { [s: string]: Joi.Schema };
   method: T;
-  methodName: string;
   paramNames: string[];
   sync: boolean;
 }
 
-export function wrapValidate<T extends Function>(
+export function wrapValidate<T extends (...args: any[]) => any>(
   options: WrapValidateOptions<T>,
 ): T {
-  const { keysSchema, method, methodName, paramNames, sync } = options;
+  const { keysSchema, method, paramNames, sync } = options;
 
   return (function validateDecorator(...args: any[]) {
     const value = combineObject(paramNames, args);

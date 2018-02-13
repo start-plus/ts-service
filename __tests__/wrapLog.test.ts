@@ -1,4 +1,3 @@
-import * as Joi from 'joi';
 import * as Logger from 'bunyan';
 import { wrapLog } from '../src/wrapLog';
 import { Seq } from '../src/Seq';
@@ -10,10 +9,6 @@ describe('wrapLog', () => {
       error: jest.fn(),
       debug: jest.fn(),
     } as any) as Logger;
-  }
-
-  function getConfig() {
-    return;
   }
 
   it('log sync', () => {

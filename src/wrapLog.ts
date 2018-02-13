@@ -4,7 +4,7 @@ import { combineObject } from './combineObject';
 import { serializeObject } from './serializeObject';
 import { Config } from './config';
 
-interface WrapLogOptions<T extends Function> {
+interface WrapLogOptions<T> {
   method: T;
   methodName: string;
   paramNames: string[];
@@ -14,7 +14,9 @@ interface WrapLogOptions<T extends Function> {
   config: Config;
 }
 
-export function wrapLog<T extends Function>(options: WrapLogOptions<T>): T {
+export function wrapLog<T extends (...args: any[]) => any>(
+  options: WrapLogOptions<T>,
+): T {
   const {
     method,
     methodName,
@@ -25,14 +27,14 @@ export function wrapLog<T extends Function>(options: WrapLogOptions<T>): T {
     config,
   } = options;
 
+  const logExit = (output: string, id: number) => {
+    const formattedOutput = removeOutput
+      ? '<removed>'
+      : serializeObject(config, output);
+    logger.debug({ id }, ` EXIT ${methodName}:`, formattedOutput);
+    return output;
+  };
   return (function logDecorator(...args: any[]) {
-    const logExit = (output: string, id: number) => {
-      const formattedOutput = removeOutput
-        ? '<removed>'
-        : serializeObject(config, output);
-      logger.debug({ id }, ` EXIT ${methodName}:`, formattedOutput);
-      return output;
-    };
     const id = seq.getNext();
     const formattedInput = paramNames.length
       ? serializeObject(config, combineObject(paramNames, args))

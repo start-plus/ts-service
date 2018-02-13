@@ -1,16 +1,16 @@
 /*
  From
  https://github.com/goatslacker/get-parameter-names
- and 
+ and
  https://www.npmjs.com/package/@avejidah/get-parameter-names
  */
 
-var COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/gm;
-var DEFAULT_PARAMS = /=[^,]+/gm;
-var FAT_ARROWS = /=>.*$/gm;
-var SPACES = /\s/gm;
-var BEFORE_OPENING_PAREN = /^[^(]*\(/gm;
-var AFTER_CLOSING_PAREN = /^([^)]*)\).*$/gm;
+const COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/gm;
+const DEFAULT_PARAMS = /=[^,]+/gm;
+const FAT_ARROWS = /=>.*$/gm;
+const SPACES = /\s/gm;
+const BEFORE_OPENING_PAREN = /^[^(]*\(/gm;
+const AFTER_CLOSING_PAREN = /^([^)]*)\).*$/gm;
 
 function joinDestructors(args: string[]) {
   let count = 0;
@@ -34,8 +34,8 @@ function joinDestructors(args: string[]) {
   return ret;
 }
 
-export function getParameterNames(fn: Function) {
-  var code = fn
+export function getParameterNames(fn: (...args: any[]) => any) {
+  const code = fn
     .toString()
     .replace(SPACES, '')
     .replace(COMMENTS, '')

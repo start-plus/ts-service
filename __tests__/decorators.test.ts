@@ -1,12 +1,23 @@
+// tslint:disable:max-classes-per-file
 import 'reflect-metadata';
 import * as Joi from 'joi';
-import { service, validate, ignore, schema } from '../src/decorators';
+import * as Logger from 'bunyan';
+import {
+  service,
+  validate,
+  ignore,
+  schema,
+  seq,
+  removeOutput,
+} from '../src/decorators';
+import { globalConfig } from '../src/config';
 
 describe('decorators', () => {
   describe('validation', () => {
     it('should throw if method is missing @validate', () => {
       expect(() => {
         @service
+        // @ts-ignore
         class MyService {
           foo() {
             return 10;
@@ -18,6 +29,7 @@ describe('decorators', () => {
     it('should not throw if method is annotated with @validate', () => {
       expect(() => {
         @service
+        // @ts-ignore
         class MyService {
           @validate
           foo() {
@@ -30,6 +42,7 @@ describe('decorators', () => {
     it('should not throw if method is annotated with @ignore', () => {
       expect(() => {
         @service
+        // @ts-ignore
         class MyService {
           @ignore
           foo() {
@@ -46,6 +59,7 @@ describe('decorators', () => {
         }
 
         @service
+        // @ts-ignore
         class MyService {
           @validate
           foo(options: InvalidOptions) {
@@ -66,6 +80,7 @@ describe('decorators', () => {
         }
 
         @service
+        // @ts-ignore
         class MyService {
           @validate
           foo(options1: ValidOptions, options2: InvalidOptions) {
@@ -78,6 +93,7 @@ describe('decorators', () => {
     it('should not throw with annotated with inline @schema', () => {
       expect(() => {
         @service
+        // @ts-ignore
         class MyService {
           @validate
           foo(
@@ -92,7 +108,20 @@ describe('decorators', () => {
   });
 
   describe('functional', () => {
-    it.only('validate sync function', () => {
+    let logger: Logger;
+    beforeEach(() => {
+      seq.reset();
+      logger = getLogger();
+      globalConfig.loggerFactory = () => logger;
+    });
+
+    function getLogger() {
+      return ({
+        error: jest.fn(),
+        debug: jest.fn(),
+      } as any) as Logger;
+    }
+    it('validate sync function', () => {
       @service
       class MyService {
         @validate
@@ -115,6 +144,53 @@ describe('decorators', () => {
       expect(() => {
         myService.foo(-10);
       }).toThrowErrorMatchingSnapshot();
+      expect((logger.debug as jest.Mock<any>).mock.calls).toMatchSnapshot();
+      expect((logger.error as jest.Mock<any>).mock.calls).toMatchSnapshot();
+    });
+
+    it('validate async function', async () => {
+      @service
+      class MyService {
+        @validate
+        async foo(
+          @schema(
+            Joi.number()
+              .positive()
+              .required(),
+          )
+          a: number,
+        ) {
+          return a + 10;
+        }
+      }
+
+      const myService = new MyService();
+      await expect(myService.foo(10)).resolves.toBe(20);
+      await expect(myService.foo(-10)).rejects.toThrowErrorMatchingSnapshot();
+      expect((logger.debug as jest.Mock<any>).mock.calls).toMatchSnapshot();
+      expect((logger.error as jest.Mock<any>).mock.calls).toMatchSnapshot();
+    });
+
+    it('with @removeOutput', () => {
+      @service
+      class MyService {
+        @validate
+        @removeOutput
+        foo(
+          @schema(
+            Joi.number()
+              .positive()
+              .required(),
+          )
+          a: number,
+        ) {
+          return a + 10;
+        }
+      }
+
+      const myService = new MyService();
+      myService.foo(10);
+      expect((logger.debug as jest.Mock<any>).mock.calls).toMatchSnapshot();
     });
   });
 });
