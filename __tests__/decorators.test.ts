@@ -92,6 +92,29 @@ describe('decorators', () => {
   });
 
   describe('functional', () => {
-    it('validate sync function', () => {});
+    it.only('validate sync function', () => {
+      @service
+      class MyService {
+        @validate
+        foo(
+          @schema(
+            Joi.number()
+              .positive()
+              .required(),
+          )
+          a: number,
+        ) {
+          return a + 10;
+        }
+      }
+
+      const myService = new MyService();
+      expect(() => {
+        myService.foo(10);
+      }).not.toThrow();
+      expect(() => {
+        myService.foo(-10);
+      }).toThrowErrorMatchingSnapshot();
+    });
   });
 });

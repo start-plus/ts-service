@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`wrapLog async error 1`] = `
+Array [
+  Array [
+    Object {
+      "id": 1,
+    },
+    "ENTER testMethod:",
+    "{ }",
+  ],
+]
+`;
+
+exports[`wrapLog async error 2`] = `
+Array [
+  Array [
+    Object {
+      "id": 1,
+    },
+    "ERROR testMethod: { } 
+",
+    [Error: some error],
+  ],
+]
+`;
+
+exports[`wrapLog log async 1`] = `
+Array [
+  Array [
+    Object {
+      "id": 1,
+    },
+    "ENTER testMethod:",
+    "{ a: 1 }",
+  ],
+  Array [
+    Object {
+      "id": 1,
+    },
+    " EXIT testMethod:",
+    "11",
+  ],
+]
+`;
+
+exports[`wrapLog log sync 1`] = `
+Array [
+  Array [
+    Object {
+      "id": 1,
+    },
+    "ENTER testMethod:",
+    "{ a: 1 }",
+  ],
+  Array [
+    Object {
+      "id": 1,
+    },
+    " EXIT testMethod:",
+    "11",
+  ],
+]
+`;
+
+exports[`wrapLog remove output 1`] = `
+Array [
+  Array [
+    Object {
+      "id": 1,
+    },
+    "ENTER testMethod:",
+    "{ a: 1 }",
+  ],
+  Array [
+    Object {
+      "id": 1,
+    },
+    " EXIT testMethod:",
+    "<removed>",
+  ],
+]
+`;
+
+exports[`wrapLog sanitized input 1`] = `
+Array [
+  Array [
+    Object {
+      "id": 1,
+    },
+    "ENTER testMethod:",
+    "{ password: '<removed>',
+  values: { accessToken: '<removed>', foo: 123 } }",
+  ],
+  Array [
+    Object {
+      "id": 1,
+    },
+    " EXIT testMethod:",
+    "'ok'",
+  ],
+]
+`;
+
+exports[`wrapLog sync error 1`] = `
+Array [
+  Array [
+    Object {
+      "id": 1,
+    },
+    "ENTER testMethod:",
+    "{ }",
+  ],
+]
+`;
+
+exports[`wrapLog sync error 2`] = `
+Array [
+  Array [
+    Object {
+      "id": 1,
+    },
+    "ERROR testMethod: { } 
+",
+    [Error: some error],
+  ],
+]
+`;

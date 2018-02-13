@@ -24,8 +24,10 @@
     "typescript": "^2.7.1"
   },
   "dependencies": {
+    "@types/bunyan": "^1.8.4",
     "@types/jest": "^22.1.2",
     "@types/joi": "^13.0.5",
+    "bunyan": "^1.8.12",
     "joi": "^13.1.2",
     "reflect-metadata": "^0.1.12"
   }
