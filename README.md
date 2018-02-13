@@ -12,75 +12,83 @@ npm i ts-service
 ```
 
 
-## Sample usage
+## Sample usage (inline annotation)
 file `services/CalcService.js`
-```js
+```ts
 import * as Joi from 'joi';
-import decorate from 'decorate-it';
+import { service, validate, schema } from 'ts-service';
 
-function add(a, b) {
-  return a + b;
+@service
+class CalcService {
+  @validate
+  add(
+    @schema(Joi.number().required())
+    a: number,
+    @schema(Joi.number().required())
+    b: number,
+  ) {
+    return a + b;
+  }
 }
 
-add.sync = true;
-add.schema = {
-  a: Joi.number().required(),
-  b: Joi.number().required(),
-};
-
-
 // create your service
-const CalcService = {
-  add,
-};
-
-// decorate it, it will mutate CalcService
-decorate(CalcService, 'CalcService');
-
-export default CalcService;
+export const calcService = new CalcService();
 
 ```
 
 use service
-```js
-import CalcService from './services/CalcService';
+```ts
+import {calcService} from './services/CalcService';
 
 
-CalcService.add(1, 3); // returns 4
-CalcService.add('5', '6'); // returns 11, input parameters are converted to number types
-CalcService.add('1', { foo: 'bar' }); // logs and throws an error
+calcService.add(1, 3); // returns 4
+calcService.add('5' as any, '6' as any); // returns 11, input parameters are converted to number types
+calcService.add('1' as any, { foo: 'bar' } as any); // logs and throws an error
+// NOTE: you shouldn't use casting `as any` in your code. It's used only for a demonstration purpose.
+// The service is expected to be called with unknown input (for example: req.body).
 ```
 
-![Alt text](https://monosnap.com/file/7fZER5fIdYfMmWQ4uiPe8iZSXEdfrG.png)
+![Alt text](./github/example1.png)
 
 See example under `example/example1.js`. Run it using `npm run example1`.
 
 
 ## Async sample usage
 file `services/UserService.js`
-```js
-import Joi from 'joi';
-import decorate from 'decorate-it';
+```ts
+import * as Joi from 'joi';
+import { service, validate, schema } from 'ts-service';
 
-async function getUser(id) {
-  if (id === 1) {
-    return await new Promise((resolve) => {
-      setTimeout(() => resolve({ id: 1, username: 'john' }), 100);
-    });
-  }
-  throw new Error('User not found');
+@schema(
+  Joi.object().keys({
+    name: Joi.string()
+      .required()
+      .alphanum(),
+    email: Joi.string()
+      .required()
+      .email(),
+    password: Joi.string()
+      .required()
+      .min(5),
+  }),
+)
+class CreateUserValues {
+  name: string;
+  email: string;
+  password: string;
 }
-getUser.sync = false; // optional, false by default
-getUser.params = ['id'];
-getUser.schema = {
-  id: Joi.number().required(),
-};
 
+@service
+class UserService {
+  @validate
+  async createUser(values: CreateUserValues) {
+    const id = 1;
+    return id;
+  }
+}
 
 // create your service
-const UserService = {
-  getUser,
-};
+export const userService = new UserService();
 
 // decorate it, it will mutate UserService
 decorate(UserService, 'UserService');
@@ -93,58 +101,58 @@ use service
 ```js
 import UserService from './services/UserService';
 
-
-await UserService.getUser(1); // returns { id: 1, username: 'john' }
-await UserService.getUser(222); // throws 'User not found'
+  await userService.createUser({
+    name: 'john',
+    email: 'john@example.com',
+    password: 'secret',
+  }); // ok
+  await userService.createUser({
+    name: 'john',
+    email: 'invalid email',
+    password: 'secret',
+  }); // throw error because email is invalid
 ```
 
-![Alt text](https://monosnap.com/file/Kk2wCus4TYBWES4KBCQWElwu6OpuES.png)
+![Alt text](./.github/example2.png)
 
 See example under `example/example2.js`. Run it using `npm run example2`.  
-**NOTE** parameter names cannot be automatically retrieved from `async` methods.  
-You must define them explicitly in `params` property like this `getUser.params = ['id'];`
 
 
 ## Removing security information
 By default properties `password`, `token`, `accessToken` are removed from logging.  
-Additionally you can define `removeOutput = true` to remove the method result.  
+Additionally you can annotated method with `@removeOutput` to remove the method result.  
 Example:
 
 file `services/SecurityService.js`
-```js
-import Joi from 'joi';
-import decorate from 'decorate-it';
+```ts
+import * as Joi from 'joi';
+import { service, validate, schema, removeOutput } from '../';
 
-function hashPassword(password) {
-  return 'ba817ef716'; // hash password here
+@service
+class SecurityService {
+  @validate
+  @removeOutput
+  hashPassword(
+    @schema(Joi.string().required())
+    password: string,
+  ) {
+    return 'ba817ef716'; // hash password here
+  }
 }
 
-hashPassword.removeOutput = true;
-hashPassword.schema = {
-  password: Joi.string().required(),
-};
-
-
 // create your service
-const SecurityService = {
-  hashPassword,
-};
-
-// decorate it, it will mutate SecurityService
-decorate(SecurityService, 'SecurityService');
-
-export default SecurityService;
+export const securityService = new SecurityService();
 
 ```
 
 use service
-```js
-import SecurityService from './services/SecurityService';
+```ts
+import {securityService} from './services/SecurityService';
 
-SecurityService.hashPassword('secret-password');
+securityService.hashPassword('secret-password');
 ```
 
-![Alt text](https://monosnap.com/file/QuUXmIPKJ4GLNI1NvoAN8T2ClLnMv3.png)
+![Alt text](./.github/example3.png)
 
 See example under `example/example3.js`. Run it using `npm run example3`.
 
@@ -174,5 +182,3 @@ Only properties are logged: `statusCode`, `header`.
 
 
 MIT License
-
-Copyright (c) 2016 Łukasz Sentkiewicz
