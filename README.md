@@ -11,6 +11,47 @@ It depends on [joi](https://github.com/hapijs/joi) (validator) and [bunyan](http
 npm i ts-service
 ```
 
+## Features
+- Input logging (input parameters):
+```
+ENTER methodName: {param1: 'foo', param2: 'bar'}
+```
+- Output logging (sync and async):
+```
+EXIT methodName: {result: 'foobar', anotherProp: 'bar'}
+```
+- Error logging with input parameters (see example below).
+- Input validation and normalization (example: string type `"2"` to number type `2`).
+```ts
+add(
+    @schema(Joi.number().required())
+    a: number,
+  ) {
+    // `typeof a` will be always 'number'
+    // even if we pass number string value e.g '2'
+  }
+```
+- Validation with inline annotation.
+```ts
+sendEmail(
+  @schema(Joi.string().email().required()
+  email: string
+) {
+  ....
+}
+```
+- Validation with class annotation.
+```ts
+@schema(Joi.object().keys({....}))
+class SendEmailValues {
+  ....
+}
+
+sendEmail(values: SendEmailValues) {
+  ....
+}
+```
+
 
 ## Sample usage (inline annotation)
 file `services/CalcService.ts`
@@ -53,7 +94,7 @@ calcService.add('1' as any, { foo: 'bar' } as any); // logs and throws an error
 See example under `example/example1.ts`. Run it using `npm run example1`.
 
 
-## Async sample usage
+## Async sample usage (class annotation)
 file `services/UserService.ts`
 ```ts
 import * as Joi from 'joi';
