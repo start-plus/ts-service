@@ -2,14 +2,14 @@
   "name": "ts-service",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
     "example1": "ts-node examples/example1.ts | bunyan -o short",
     "example2": "ts-node examples/example2.ts | bunyan -o short",
     "example3": "ts-node examples/example3.ts | bunyan -o short",
     "jest": "jest",
     "tsc": "tsc -p . --noEmit",
-    "build": "tsc -p . --declaration",
+    "build": "tsc -p . --declaration && cp package.json dist/package.json",
     "lint":
       "tslint -c tslint.json 'src/**/*.{ts,tsx}' '__tests__/**/*.{ts,tsx}'",
     "test": "npm run tsc && npm run lint && npm run jest -- --coverage"
