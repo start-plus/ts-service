@@ -48,7 +48,7 @@ calcService.add('1' as any, { foo: 'bar' } as any); // logs and throws an error
 // The service is expected to be called with unknown input (for example: req.body).
 ```
 
-![Alt text](./github/example1.png)
+![Alt text](./.github/example1.png)
 
 See example under `example/example1.js`. Run it using `npm run example1`.
 
@@ -90,16 +90,11 @@ class UserService {
 // create your service
 export const userService = new UserService();
 
-// decorate it, it will mutate UserService
-decorate(UserService, 'UserService');
-
-export default UserService;
-
 ```
 
 use service
-```js
-import UserService from './services/UserService';
+```ts
+import {userService} from './services/UserService';
 
   await userService.createUser({
     name: 'john',

@@ -12,7 +12,7 @@
     "interface-over-type-literal": false,
     "ordered-imports": false,
     "quotemark": [true, "single"],
-    "arrow-parens": false
+    "arrow-parens": false,
     "max-classes-per-file": false
   }
 }
