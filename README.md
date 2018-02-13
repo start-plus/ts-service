@@ -92,7 +92,7 @@ calcService.add('1' as any, { foo: 'bar' } as any); // logs and throws an error
 
 ![Alt text](./.github/example1.png)
 
-See example under `example/example1.ts`. Run it using `npm run example1`.
+See example under `examples/example1.ts`. Run it using `npm run example1`.
 
 
 ## Async example usage (class annotation)
@@ -152,7 +152,7 @@ await userService.createUser({
 
 ![Alt text](./.github/example2.png)
 
-See example under `example/example2.ts`. Run it using `npm run example2`.  
+See example under `examples/example2.ts`. Run it using `npm run example2`.  
 
 
 ## Removing security information
@@ -191,7 +191,7 @@ securityService.hashPassword('secret-password');
 
 ![Alt text](./.github/example3.png)
 
-See example under `example/example3.ts`. Run it using `npm run example3`.
+See example under `examples/example3.ts`. Run it using `npm run example3`.
 
 
 ## Configuration
